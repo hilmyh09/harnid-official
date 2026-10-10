@@ -25,10 +25,11 @@
                 {{ $hero['title'] }}
             </h1>
             <p class="mt-5 max-w-md text-base text-noir-700 sm:text-lg">{{ $hero['subtitle'] }}</p>
-            <div class="mt-8 flex flex-wrap gap-3">
-                <a href="{{ $hero['cta_url'] }}" class="btn-primary min-h-12 px-8 text-sm">{{ $hero['cta_label'] }}</a>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                {{-- Tombol utama: lebar penuh di ponsel agar mudah disentuh, minimal tinggi 48px. --}}
+                <a href="{{ $hero['cta_url'] }}" class="btn-primary min-h-12 w-full px-8 text-sm sm:w-auto" data-cta="mulai-belanja">{{ $hero['cta_label'] }}</a>
                 @if (! empty($hero['secondary_label']))
-                    <a href="{{ $hero['secondary_url'] }}" class="btn-secondary min-h-12">{{ $hero['secondary_label'] }}</a>
+                    <a href="{{ $hero['secondary_url'] }}" class="btn-secondary min-h-12 w-full sm:w-auto">{{ $hero['secondary_label'] }}</a>
                 @endif
             </div>
         </div>

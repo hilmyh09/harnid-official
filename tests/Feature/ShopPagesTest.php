@@ -49,6 +49,17 @@ class ShopPagesTest extends TestCase
             ], false);
     }
 
+    public function test_home_start_shopping_button_links_to_catalog(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('data-cta="mulai-belanja"', false)
+            ->assertSee('href="'.route('catalog.index').'" class="btn-primary', false)
+            ->assertSee('Mulai Belanja');
+
+        $this->get(route('catalog.index'))->assertOk();
+    }
+
     public function test_catalog_hides_unpublished_and_inactive_products(): void
     {
         Product::factory()->create(['name' => 'Tayang Dress']);

@@ -15,7 +15,7 @@ jobs:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: hilmy_web_test
+          POSTGRES_DB: harnid_official_test
           POSTGRES_USER: hilmy
           POSTGRES_PASSWORD: hilmy
         ports: ['5432:5432']
@@ -60,7 +60,7 @@ jobs:
           DB_CONNECTION: pgsql
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
-          DB_DATABASE: hilmy_web_test
+          DB_DATABASE: harnid_official_test
           DB_USERNAME: hilmy
           DB_PASSWORD: hilmy
         run: php artisan test --compact

@@ -10,5 +10,5 @@
     <x-sections.new-arrivals :products="$newArrivals" />
     <x-sections.signature :collection="$featuredCollection" />
     <x-sections.lookbook />
-    <x-sections.benefits :store-count="$storeCount" :city-count="$cityCount" />
+    <x-sections.benefits :items="$benefits" />
 </x-layouts.shop>

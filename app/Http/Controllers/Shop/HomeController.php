@@ -21,8 +21,7 @@ class HomeController extends Controller
             'featuredCollection' => Collection::where('is_featured', true)->orderBy('sort_order')->first(),
             'newArrivals' => Product::published()->with('category')->latest('published_at')->take(8)->get(),
             'featuredProducts' => $this->featuredProducts(),
-            'storeCount' => Store::count(),
-            'cityCount' => Store::distinct('city')->count('city'),
+            'benefits' => $this->benefits(),
         ]);
     }
 
@@ -75,6 +74,25 @@ class HomeController extends Controller
 
             return $product;
         }, $samples));
+    }
+
+    /**
+     * Poin keunggulan toko (data tiruan). Poin lokasi toko memakai jumlah
+     * toko/kota dari database.
+     *
+     * @return list<array<string, string>>
+     */
+    private function benefits(): array
+    {
+        $storeCount = Store::count();
+        $cityCount = Store::distinct('city')->count('city');
+
+        return [
+            ['icon' => 'fabric', 'title' => 'Bahan premium', 'text' => 'Dipilih supaya adem dan nyaman dipakai seharian.'],
+            ['icon' => 'truck', 'title' => 'Kirim ke mana saja', 'text' => 'Pengiriman ke seluruh Indonesia dan luar negeri.'],
+            ['icon' => 'swap', 'title' => 'Tukar ukuran', 'text' => 'Salah ukuran? Tukar dalam 7 hari setelah diterima.', 'url' => route('size-guide'), 'link_label' => 'Panduan ukuran'],
+            ['icon' => 'pin', 'title' => "{$storeCount} toko, {$cityCount} kota", 'text' => 'Coba langsung di toko terdekat sebelum membeli.', 'url' => route('stores'), 'link_label' => 'Lihat lokasi toko'],
+        ];
     }
 
     /**

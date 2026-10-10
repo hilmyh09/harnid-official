@@ -81,6 +81,20 @@ class ShopPagesTest extends TestCase
             ->assertDontSee('Kirana Dress Ivory');
     }
 
+    public function test_home_benefits_section_lists_points_with_icons(): void
+    {
+        Store::factory()->create(['city' => 'Bandung']);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Kenapa Harnid')
+            ->assertSee('Bahan premium')
+            ->assertSee('Tukar ukuran')
+            ->assertSee('1 toko, 1 kota')
+            ->assertSee('Lihat lokasi toko')
+            ->assertSee('<svg class="h-6 w-6"', false);
+    }
+
     public function test_catalog_hides_unpublished_and_inactive_products(): void
     {
         Product::factory()->create(['name' => 'Tayang Dress']);

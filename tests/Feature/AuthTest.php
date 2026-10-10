@@ -21,7 +21,7 @@ class AuthTest extends TestCase
         $user = User::factory()->create(['password' => 'rahasia123']);
 
         $this->post(route('login.store'), ['email' => $user->email, 'password' => 'rahasia123'])
-            ->assertRedirect(route('dashboard'));
+            ->assertRedirect(route('admin.dashboard'));
 
         $this->assertAuthenticatedAs($user);
     }
@@ -54,7 +54,7 @@ class AuthTest extends TestCase
 
     public function test_dashboard_requires_authentication(): void
     {
-        $this->get(route('dashboard'))->assertRedirect(route('login'));
+        $this->get(route('admin.dashboard'))->assertRedirect(route('login'));
     }
 
     public function test_authenticated_user_sees_dashboard_and_messages(): void
@@ -63,10 +63,10 @@ class AuthTest extends TestCase
         ContactMessage::factory()->create(['subject' => 'Subjek uji dashboard']);
 
         $this->actingAs($user)
-            ->get(route('dashboard'))
+            ->get(route('admin.messages.index'))
             ->assertOk()
             ->assertSee('Subjek uji dashboard')
-            ->assertSee('Belum dibaca');
+            ->assertSee('belum dibaca');
     }
 
     public function test_authenticated_user_can_mark_message_as_read(): void
@@ -75,7 +75,7 @@ class AuthTest extends TestCase
         $message = ContactMessage::factory()->create();
 
         $this->actingAs($user)
-            ->patch(route('dashboard.messages.read', $message))
+            ->patch(route('admin.messages.read', $message))
             ->assertRedirect();
 
         $this->assertNotNull($message->fresh()->read_at);
@@ -85,7 +85,7 @@ class AuthTest extends TestCase
     {
         $message = ContactMessage::factory()->create();
 
-        $this->patch(route('dashboard.messages.read', $message))->assertRedirect(route('login'));
+        $this->patch(route('admin.messages.read', $message))->assertRedirect(route('login'));
 
         $this->assertNull($message->fresh()->read_at);
     }
@@ -94,7 +94,7 @@ class AuthTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->actingAs($user)->post(route('logout'))->assertRedirect(route('home'));
+        $this->actingAs($user)->post(route('admin.logout'))->assertRedirect(route('home'));
 
         $this->assertGuest();
     }

@@ -1,19 +1,39 @@
-{{-- Hero pembuka: judul, penjelasan singkat, gambar utama, dan tombol Mulai Belanja. --}}
+{{--
+    Hero pembuka: judul besar, satu kalimat penjelasan, gambar utama, dan tombol Mulai Belanja.
+    Semua teks/gambar datang dari prop `$hero` (data tiruan dari HomeController) agar mudah
+    diganti tanpa menyentuh markup. Nilai default di bawah dipakai bila prop tidak dikirim.
+--}}
+@props(['hero' => []])
+@php($hero = array_merge([
+    'eyebrow' => 'Koleksi terbaru',
+    'title' => 'Modest fashion yang rapi, nyaman, dan siap dipakai.',
+    'subtitle' => config('company.tagline').'. Ready-to-wear dari kasual hingga formal.',
+    'image' => '/images/campaign/hero.jpg',
+    'image_alt' => 'Tiga model mengenakan Harnid Basic Shirt warna cokelat, abu-abu, dan hitam',
+    'cta_label' => 'Mulai Belanja',
+    'cta_url' => route('catalog.index'),
+    'secondary_label' => 'New Arrivals',
+    'secondary_url' => route('catalog.new'),
+], $hero))
 <section class="bg-ivory-100" aria-labelledby="hero-title">
-    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 md:py-20">
+    <div class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-6 sm:py-14 md:grid-cols-2 md:gap-10 md:py-20">
         <div class="order-2 md:order-1">
-            <p class="eyebrow">Koleksi terbaru</p>
-            <h1 id="hero-title" class="mt-4 max-w-xl font-display text-5xl font-medium leading-[1.05] text-noir-900 sm:text-6xl">
-                Anggun di setiap<br>momen Anda.
+            @if (! empty($hero['eyebrow']))
+                <p class="eyebrow">{{ $hero['eyebrow'] }}</p>
+            @endif
+            <h1 id="hero-title" class="mt-4 max-w-xl font-display text-4xl font-medium leading-[1.08] text-noir-900 sm:text-5xl lg:text-6xl">
+                {{ $hero['title'] }}
             </h1>
-            <p class="mt-5 max-w-md text-sm text-noir-700 sm:text-base">{{ config('company.tagline') }}. Ready-to-wear untuk kasual hingga formal.</p>
+            <p class="mt-5 max-w-md text-base text-noir-700 sm:text-lg">{{ $hero['subtitle'] }}</p>
             <div class="mt-8 flex flex-wrap gap-3">
-                <a href="{{ route('catalog.index') }}" class="btn-primary">Mulai Belanja</a>
-                <a href="{{ route('catalog.new') }}" class="btn-secondary">New Arrivals</a>
+                <a href="{{ $hero['cta_url'] }}" class="btn-primary min-h-12 px-8 text-sm">{{ $hero['cta_label'] }}</a>
+                @if (! empty($hero['secondary_label']))
+                    <a href="{{ $hero['secondary_url'] }}" class="btn-secondary min-h-12">{{ $hero['secondary_label'] }}</a>
+                @endif
             </div>
         </div>
         <div class="order-1 aspect-[4/5] overflow-hidden bg-ivory-200 md:order-2">
-            <img src="/images/campaign/hero.jpg" alt="Tiga model mengenakan Harnid Basic Shirt warna cokelat, abu-abu, dan hitam" class="h-full w-full object-cover object-top" fetchpriority="high">
+            <img src="{{ $hero['image'] }}" alt="{{ $hero['image_alt'] }}" width="1333" height="2000" class="h-full w-full object-cover object-top" fetchpriority="high" decoding="async">
         </div>
     </div>
 </section>

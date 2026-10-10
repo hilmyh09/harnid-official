@@ -4,7 +4,7 @@
     Setiap section adalah komponen di resources/views/components/sections/.
 --}}
 <x-layouts.shop>
-    <x-sections.hero />
+    <x-sections.hero :hero="$hero" />
     <x-sections.featured-products :products="$featuredProducts" />
     <x-sections.categories :categories="$categories" />
     <x-sections.new-arrivals :products="$newArrivals" />

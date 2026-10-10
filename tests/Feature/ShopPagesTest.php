@@ -23,6 +23,8 @@ class ShopPagesTest extends TestCase
         $this->get(route('home'))
             ->assertOk()
             ->assertSee('/images/brand/mark-256.png')
+            ->assertSee('Modest fashion yang rapi, nyaman, dan siap dipakai.')
+            ->assertSee('/images/campaign/hero.jpg')
             ->assertSee('Kirana Dress')
             ->assertSee('Dresses')
             ->assertSee('Harnid Noir')

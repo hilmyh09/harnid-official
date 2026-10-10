@@ -7,9 +7,21 @@
         </nav>
 
         <div class="mt-6 grid gap-10 md:grid-cols-2">
-            <div class="aspect-[3/4] overflow-hidden bg-ivory-200">
-                @if ($product->imageUrl())
-                    <img src="{{ $product->imageUrl() }}" alt="{{ $product->name }}" class="h-full w-full object-cover">
+            @php($images = $product->allImageUrls())
+            <div data-gallery>
+                <div class="aspect-[3/4] overflow-hidden bg-ivory-200">
+                    @if ($images !== [])
+                        <img src="{{ $images[0] }}" alt="{{ $product->name }}" class="h-full w-full object-cover" data-gallery-main>
+                    @endif
+                </div>
+                @if (count($images) > 1)
+                    <div class="mt-3 grid grid-cols-5 gap-2">
+                        @foreach ($images as $i => $url)
+                            <button type="button" class="aspect-[3/4] overflow-hidden border {{ $i === 0 ? 'border-noir-900' : 'border-transparent' }} bg-ivory-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500" data-gallery-thumb="{{ $url }}" aria-label="Lihat gambar {{ $i + 1 }}">
+                                <img src="{{ $url }}" alt="" class="h-full w-full object-cover" loading="lazy">
+                            </button>
+                        @endforeach
+                    </div>
                 @endif
             </div>
 

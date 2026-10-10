@@ -36,8 +36,8 @@
             </div>
         </details>
 
-        <a href="{{ route('home') }}" class="font-display text-2xl font-semibold tracking-[0.12em] text-noir-900 sm:text-3xl" aria-label="Beranda {{ config('company.name') }}">
-            {{ strtoupper(config('company.name')) }}
+        <a href="{{ route('home') }}" aria-label="Beranda {{ config('company.name') }}">
+            <x-brand-logo />
         </a>
 
         <div class="flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.18em]">

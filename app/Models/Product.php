@@ -16,7 +16,7 @@ class Product extends Model
 
     protected $fillable = [
         'category_id', 'collection_id', 'name', 'slug', 'sku', 'price', 'compare_at_price',
-        'description', 'color', 'color_hex', 'sizes', 'stock', 'image_path',
+        'description', 'color', 'color_hex', 'sizes', 'stock', 'image_path', 'gallery',
         'is_featured', 'is_active', 'published_at',
     ];
 
@@ -27,6 +27,7 @@ class Product extends Model
             'compare_at_price' => 'integer',
             'stock' => 'integer',
             'sizes' => 'array',
+            'gallery' => 'array',
             'is_featured' => 'boolean',
             'is_active' => 'boolean',
             'published_at' => 'datetime',
@@ -91,14 +92,27 @@ class Product extends Model
 
     public function imageUrl(): ?string
     {
-        if ($this->image_path === null) {
-            return null;
+        return $this->image_path === null ? null : self::resolveImageUrl($this->image_path);
+    }
+
+    /** @return list<string> URL gambar tambahan (tanpa gambar utama). */
+    public function galleryUrls(): array
+    {
+        return array_values(array_map(self::resolveImageUrl(...), $this->gallery ?? []));
+    }
+
+    /** @return list<string> Gambar utama diikuti galeri. */
+    public function allImageUrls(): array
+    {
+        return array_values(array_filter([$this->imageUrl(), ...$this->galleryUrls()]));
+    }
+
+    public static function resolveImageUrl(string $path): string
+    {
+        if (str_starts_with($path, 'http') || str_starts_with($path, '/')) {
+            return $path;
         }
 
-        if (str_starts_with($this->image_path, 'http') || str_starts_with($this->image_path, '/')) {
-            return $this->image_path;
-        }
-
-        return Storage::disk('public')->url($this->image_path);
+        return Storage::disk('public')->url($path);
     }
 }

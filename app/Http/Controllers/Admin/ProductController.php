@@ -41,6 +41,7 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products', 'public');
         }
 
+        $product->gallery = $this->storeGallery($request, []);
         $product->save();
 
         return redirect()->route('admin.products.index')->with('status', 'Produk ditambahkan.');
@@ -68,6 +69,8 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products', 'public');
         }
 
+        $keep = array_values(array_diff($product->gallery ?? [], $request->input('remove_gallery', [])));
+        $product->gallery = $this->storeGallery($request, $keep);
         $product->save();
 
         return redirect()->route('admin.products.index')->with('status', 'Produk diperbarui.');
@@ -93,6 +96,19 @@ class ProductController extends Controller
     /** @return array<string, mixed> */
     private function attributes(ProductRequest $request): array
     {
-        return $request->safe()->except(['image', 'published']);
+        return $request->safe()->except(['image', 'gallery', 'remove_gallery', 'published']);
+    }
+
+    /**
+     * @param  list<string>  $existing
+     * @return list<string>
+     */
+    private function storeGallery(ProductRequest $request, array $existing): array
+    {
+        foreach ($request->file('gallery', []) as $file) {
+            $existing[] = $file->store('products', 'public');
+        }
+
+        return array_slice($existing, 0, 8);
     }
 }

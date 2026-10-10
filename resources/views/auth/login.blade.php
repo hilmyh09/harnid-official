@@ -1,6 +1,7 @@
 <x-layouts.shop title="Masuk">
     <div class="mx-auto max-w-md px-4 py-16 sm:px-6">
         <div class="border border-ivory-200 bg-white p-8">
+            <x-brand-logo class="mb-6" />
             <p class="eyebrow">Admin</p>
             <h1 class="mt-2 font-display text-3xl font-medium">Masuk</h1>
             <form method="POST" action="{{ route('login.store') }}" class="mt-6 space-y-5">

@@ -38,22 +38,57 @@ class CatalogSeeder extends Seeder
             ['name' => $c[0], 'description' => $c[1], 'is_featured' => $c[2], 'sort_order' => $c[3]]
         )]);
 
+        // Produk nyata Harnid: kemeja basic 3 warna (foto asli). Harga masih asumsi; ubah lewat admin.
+        $shirtDescription = 'Kemeja basic Harnid dengan potongan relaxed, kerah tegas, dan manset lebar berdetail lipatan. '
+            .'Bahan jatuh dan tidak menerawang, nyaman dipakai seharian untuk kerja maupun acara santai. '
+            .'Panjang sedikit di bawah pinggul dengan belahan samping agar mudah dipadukan dengan rok atau celana.';
+
+        $shirts = [
+            ['Harnid Basic Shirt Cokelat', 'Everyday Ease', 'Cokelat', '#4a3b36', 'shirt-cokelat', ['shirt-cokelat-model', 'shirt-cokelat-kerah', 'shirt-detail-manset', 'shirt-trio-rack']],
+            ['Harnid Basic Shirt Abu-abu', 'Everyday Ease', 'Abu-abu', '#7d8188', 'shirt-abu', ['shirt-abu-model', 'shirt-trio-rack', 'shirt-detail-manset']],
+            ['Harnid Basic Shirt Hitam', 'Harnid Noir', 'Hitam', '#1c1c1c', 'shirt-hitam', ['shirt-hitam-model', 'shirt-trio-rack', 'shirt-detail-manset']],
+        ];
+
+        foreach ($shirts as $i => [$name, $col, $color, $hex, $img, $gallery]) {
+            Product::updateOrCreate(
+                ['slug' => Str::slug($name)],
+                [
+                    'category_id' => $categories['Tops']->id,
+                    'collection_id' => $collections[$col]->id,
+                    'name' => $name,
+                    'sku' => 'HRN-SHIRT-'.strtoupper(substr($color, 0, 3)),
+                    'price' => 189000,
+                    'compare_at_price' => null,
+                    'description' => $shirtDescription,
+                    'color' => $color,
+                    'color_hex' => $hex,
+                    'sizes' => ['S', 'M', 'L', 'XL'],
+                    'stock' => 20,
+                    'image_path' => "/images/products/{$img}.jpg",
+                    'gallery' => array_map(fn ($g) => "/images/products/{$g}.jpg", $gallery),
+                    'is_featured' => true,
+                    'is_active' => true,
+                    'published_at' => now()->subMinutes($i),
+                ]
+            );
+        }
+
         $products = [
             // [nama, kategori, koleksi, harga, harga coret, warna, hex, ukuran, stok, gambar, featured]
             ['Aira Voile Scarf', 'Scarves', 'Everyday Ease', 149000, null, 'Sand', '#d9c3a5', null, 40, 'scarf-sand', false],
             ['Aira Voile Scarf Olive', 'Scarves', 'Everyday Ease', 149000, null, 'Olive', '#8a9a6b', null, 35, 'scarf-olive', false],
-            ['Noir Satin Scarf', 'Scarves', 'Harnid Noir', 229000, null, 'Noir', '#2b2b2b', null, 25, 'scarf-noir', true],
+            ['Noir Satin Scarf', 'Scarves', 'Harnid Noir', 229000, null, 'Noir', '#2b2b2b', null, 25, 'scarf-noir', false],
             ['Kirana Flowy Dress', 'Dresses', 'Timeless Raya', 589000, 689000, 'Ivory', '#efe6d8', ['S', 'M', 'L', 'XL'], 18, 'dress-ivory', true],
             ['Raya Embroidered Dress', 'Dresses', 'Timeless Raya', 749000, null, 'Maroon', '#7a2e3a', ['S', 'M', 'L', 'XL'], 12, 'dress-maroon', false],
             ['Lavia Pleated Dress', 'Dresses', 'Everyday Ease', 499000, null, 'Navy', '#2c3a5a', ['S', 'M', 'L', 'XL'], 20, 'dress-navy', false],
-            ['Noir Structured Dress', 'Dresses', 'Harnid Noir', 899000, null, 'Noir', '#262626', ['S', 'M', 'L'], 8, 'dress-noir', true],
+            ['Noir Structured Dress', 'Dresses', 'Harnid Noir', 899000, null, 'Noir', '#262626', ['S', 'M', 'L'], 8, 'dress-noir', false],
             ['Sora Cotton Tunic', 'Tops', 'Everyday Ease', 329000, 379000, 'Cream', '#f1e9dc', ['S', 'M', 'L', 'XL'], 30, 'top-cream', false],
             ['Mira Linen Blouse', 'Tops', 'Everyday Ease', 299000, null, 'Sage', '#b7c4ad', ['S', 'M', 'L', 'XL'], 22, 'top-sage', false],
             ['Hana Long Outer', 'Outerwear', 'Everyday Ease', 459000, null, 'Camel', '#c69c6d', ['S', 'M', 'L'], 15, 'outer-camel', false],
             ['Noir Tailored Vest', 'Outerwear', 'Harnid Noir', 549000, null, 'Noir', '#2a2a2a', ['S', 'M', 'L'], 10, 'outer-noir', false],
             ['Wide Leg Pants', 'Bottoms', 'Everyday Ease', 279000, null, 'Black', '#2e2e2e', ['S', 'M', 'L', 'XL'], 28, 'bottom-black', false],
             ['A-Line Pleated Skirt', 'Bottoms', 'Everyday Ease', 319000, null, 'Stone', '#b9b1a3', ['S', 'M', 'L', 'XL'], 16, 'bottom-stone', false],
-            ['Dara Two-Piece Set', 'Sets', 'Timeless Raya', 659000, 759000, 'Dusty Pink', '#c99a9a', ['S', 'M', 'L', 'XL'], 14, 'set-dusty', true],
+            ['Dara Two-Piece Set', 'Sets', 'Timeless Raya', 659000, 759000, 'Dusty Pink', '#c99a9a', ['S', 'M', 'L', 'XL'], 14, 'set-dusty', false],
             ['Noir Signature Set', 'Sets', 'Harnid Noir', 1099000, null, 'Noir', '#232323', ['S', 'M', 'L'], 6, 'set-noir', false],
             ['Mocha Knit Set', 'Sets', 'Everyday Ease', 579000, null, 'Mocha', '#8c6a52', ['S', 'M', 'L', 'XL'], 11, 'set-mocha', false],
         ];
@@ -68,6 +103,7 @@ class CatalogSeeder extends Seeder
                     'sku' => 'HRN-'.str_pad((string) ($i + 1), 4, '0', STR_PAD_LEFT),
                     'price' => $price,
                     'compare_at_price' => $compare,
+                    'gallery' => null,
                     'description' => "{$name} dari koleksi {$col}. Bahan premium yang jatuh dan nyaman dipakai seharian, jahitan rapi, dan warna yang mudah dipadupadankan. Deskripsi ini contoh; ubah lewat admin.",
                     'color' => $color,
                     'color_hex' => $hex,
@@ -76,7 +112,7 @@ class CatalogSeeder extends Seeder
                     'image_path' => "/images/products/{$img}.svg",
                     'is_featured' => $featured,
                     'is_active' => true,
-                    'published_at' => now()->subDays(count($products) - $i),
+                    'published_at' => now()->subDays(count($products) + 1 - $i),
                 ]
             );
         }

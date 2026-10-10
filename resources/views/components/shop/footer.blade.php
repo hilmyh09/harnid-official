@@ -1,7 +1,7 @@
 <footer class="mt-24 border-t border-ivory-200 bg-ivory-100">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div class="md:col-span-2">
-            <p class="font-display text-2xl font-semibold tracking-[0.12em]">{{ strtoupper(config('company.name')) }}</p>
+            <x-brand-logo />
             <p class="mt-3 max-w-sm text-sm text-noir-700">{{ config('company.tagline') }}. Sejak {{ config('company.founded_year') }}.</p>
             <form class="mt-6 flex max-w-sm gap-2" action="{{ route('contact') }}" method="GET">
                 <label for="newsletter" class="sr-only">Email</label>

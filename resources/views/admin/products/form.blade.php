@@ -49,6 +49,19 @@
                 <input name="image" type="file" accept="image/*" class="mt-3 block w-full text-xs">
                 <p class="mt-1 text-xs text-noir-700/60">JPG/PNG/WebP maks. 3 MB, rasio 3:4.</p>
                 <x-field-error for="image" />
+                <p class="label mt-5">Galeri (maks. 8)</p>
+                @if ($product->gallery)
+                    <div class="grid grid-cols-3 gap-2">
+                        @foreach ($product->gallery as $path)
+                            <label class="block text-[11px]">
+                                <img src="{{ \App\Models\Product::resolveImageUrl($path) }}" alt="" class="aspect-[3/4] w-full object-cover">
+                                <span class="mt-1 flex items-center gap-1"><input type="checkbox" name="remove_gallery[]" value="{{ $path }}"> hapus</span>
+                            </label>
+                        @endforeach
+                    </div>
+                @endif
+                <input name="gallery[]" type="file" accept="image/*" multiple class="mt-3 block w-full text-xs">
+                <x-field-error for="gallery" /><x-field-error for="gallery.*" />
             </div>
             <div class="space-y-3 border border-ivory-200 bg-white p-6 text-sm">
                 <label class="flex items-center gap-2"><input type="checkbox" name="published" value="1" @checked(old('published', $product->published_at !== null))> Tayang di toko</label>

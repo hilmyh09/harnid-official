@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
+    <link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
     <title>{{ $title }} — Admin {{ config('company.name') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-ivory-100 font-sans antialiased">
     <div class="flex min-h-screen">
         <aside class="hidden w-60 shrink-0 bg-noir-900 p-4 text-ivory-200 md:block">
-            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 font-display text-xl font-semibold tracking-[0.12em] text-white">{{ strtoupper(config('company.name')) }}</a>
+            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2"><x-brand-logo size="sm" :light="true" /></a>
             <nav class="mt-6 space-y-1" aria-label="Menu admin">
                 <a href="{{ route('admin.dashboard') }}" @class(['admin-link', 'admin-link-active' => request()->routeIs('admin.dashboard')])>Dashboard</a>
                 <a href="{{ route('admin.products.index') }}" @class(['admin-link', 'admin-link-active' => request()->routeIs('admin.products.*')])>Produk</a>
@@ -29,7 +32,7 @@
 
         <div class="flex-1">
             <header class="flex items-center justify-between border-b border-ivory-200 bg-white px-4 py-3 md:hidden">
-                <a href="{{ route('admin.dashboard') }}" class="font-display text-lg font-semibold tracking-widest">{{ strtoupper(config('company.name')) }}</a>
+                <a href="{{ route('admin.dashboard') }}"><x-brand-logo size="sm" /></a>
                 <details class="relative">
                     <summary class="cursor-pointer list-none text-xs font-semibold uppercase tracking-widest">Menu</summary>
                     <div class="absolute right-0 z-20 mt-2 w-48 border border-ivory-200 bg-white p-2 shadow-lg">

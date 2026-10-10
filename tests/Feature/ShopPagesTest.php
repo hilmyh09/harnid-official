@@ -22,7 +22,7 @@ class ShopPagesTest extends TestCase
 
         $this->get(route('home'))
             ->assertOk()
-            ->assertSee('HARNID OFFICIAL')
+            ->assertSee('/images/brand/mark-256.png')
             ->assertSee('Kirana Dress')
             ->assertSee('Dresses')
             ->assertSee('Harnid Noir')

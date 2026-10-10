@@ -48,6 +48,10 @@ class ProductRequest extends FormRequest
             'sizes.*' => ['string', 'max:10'],
             'stock' => ['required', 'integer', 'min:0', 'max:999999'],
             'image' => ['nullable', 'image', 'max:3072'],
+            'gallery' => ['nullable', 'array', 'max:8'],
+            'gallery.*' => ['image', 'max:3072'],
+            'remove_gallery' => ['nullable', 'array'],
+            'remove_gallery.*' => ['string'],
             'is_featured' => ['boolean'],
             'is_active' => ['boolean'],
             'published' => ['nullable', 'boolean'],
@@ -58,7 +62,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'nama produk', 'sku' => 'SKU', 'category_id' => 'kategori', 'collection_id' => 'koleksi',
-            'price' => 'harga', 'compare_at_price' => 'harga coret', 'stock' => 'stok', 'image' => 'gambar',
+            'price' => 'harga', 'compare_at_price' => 'harga coret', 'stock' => 'stok', 'image' => 'gambar', 'gallery' => 'galeri',
         ];
     }
 }

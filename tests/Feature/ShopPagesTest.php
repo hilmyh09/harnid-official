@@ -111,6 +111,17 @@ class ShopPagesTest extends TestCase
         }
     }
 
+    public function test_brand_logo_links_home_and_uses_company_name(): void
+    {
+        config(['company.name' => 'Toko Uji']);
+
+        $this->get(route('catalog.index'))
+            ->assertOk()
+            ->assertSee('href="'.route('home').'" aria-label="Beranda Toko Uji"', false)
+            ->assertSee('src="/images/brand/mark-256.png" alt="" width="256" height="256"', false)
+            ->assertSee('Toko Uji');
+    }
+
     public function test_footer_shows_contact_and_main_links_on_every_shop_page(): void
     {
         config(['company.email' => 'halo@harnid.test', 'company.phone' => '+62 812-1111-2222']);

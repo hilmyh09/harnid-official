@@ -5,7 +5,7 @@
     <div class="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-14 sm:px-6 lg:grid-cols-5">
         {{-- Identitas + kontak --}}
         <div class="col-span-2">
-            <a href="{{ route('home') }}" class="inline-block" aria-label="Beranda {{ config('company.name') }}"><x-brand-logo /></a>
+            <x-brand-logo :href="route('home')" />
             <p class="mt-3 max-w-sm text-sm text-noir-700">{{ config('company.tagline') }}. Sejak {{ config('company.founded_year') }}.</p>
             <address class="mt-6 space-y-2 text-sm not-italic text-noir-700">
                 <p><span class="eyebrow block">Email</span><a class="hover:text-noir-900" href="mailto:{{ config('company.email') }}">{{ config('company.email') }}</a></p>

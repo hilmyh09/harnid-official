@@ -18,7 +18,7 @@
 <body class="min-h-screen bg-ivory-100 font-sans antialiased">
     <div class="flex min-h-screen">
         <aside class="hidden w-60 shrink-0 bg-noir-900 p-4 text-ivory-200 md:block">
-            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2"><x-brand-logo size="sm" :light="true" /></a>
+            <x-brand-logo size="sm" :light="true" :href="route('admin.dashboard')" class="px-3 py-2" />
             <nav class="mt-6 space-y-1" aria-label="Menu admin">
                 <a href="{{ route('admin.dashboard') }}" @class(['admin-link', 'admin-link-active' => request()->routeIs('admin.dashboard')])>Dashboard</a>
                 <a href="{{ route('admin.products.index') }}" @class(['admin-link', 'admin-link-active' => request()->routeIs('admin.products.*')])>Produk</a>
@@ -35,7 +35,7 @@
 
         <div class="flex-1">
             <header class="flex items-center justify-between border-b border-ivory-200 bg-white px-4 py-3 md:hidden">
-                <a href="{{ route('admin.dashboard') }}"><x-brand-logo size="sm" /></a>
+                <x-brand-logo size="sm" :href="route('admin.dashboard')" />
                 <details class="relative">
                     <summary class="cursor-pointer list-none text-xs font-semibold uppercase tracking-widest">Menu</summary>
                     <div class="absolute right-0 z-20 mt-2 w-48 border border-ivory-200 bg-white p-2 shadow-lg">

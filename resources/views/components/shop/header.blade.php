@@ -14,9 +14,7 @@
 ])
 <header class="sticky top-0 z-30 border-b border-ivory-200 bg-white/95 backdrop-blur" data-site-header>
     <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 sm:px-8 md:h-20">
-        <a href="{{ route('home') }}" class="shrink-0" aria-label="Beranda {{ config('company.name') }}">
-            <x-brand-logo />
-        </a>
+        <x-brand-logo :href="route('home')" class="shrink-0" />
 
         <nav class="hidden md:flex md:items-center md:gap-8" aria-label="Menu utama">
             @foreach ($mainLinks as $link)

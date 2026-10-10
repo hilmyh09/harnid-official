@@ -95,6 +95,23 @@ class ShopPagesTest extends TestCase
             ->assertSee('<svg class="h-6 w-6"', false);
     }
 
+    public function test_footer_shows_contact_and_main_links_on_every_shop_page(): void
+    {
+        config(['company.email' => 'halo@harnid.test', 'company.phone' => '+62 812-1111-2222']);
+
+        foreach ([route('home'), route('catalog.index'), route('contact')] as $url) {
+            $this->get($url)
+                ->assertOk()
+                ->assertSee('halo@harnid.test')
+                ->assertSee('+62 812-1111-2222')
+                ->assertSee('href="tel:+6281211112222"', false)
+                ->assertSee('<nav class="text-sm" aria-label="Tautan utama">', false)
+                ->assertSee('href="'.route('home').'">Beranda', false)
+                ->assertSee('href="'.route('catalog.index').'">Produk', false)
+                ->assertSee('href="'.route('contact').'">Kontak', false);
+        }
+    }
+
     public function test_catalog_hides_unpublished_and_inactive_products(): void
     {
         Product::factory()->create(['name' => 'Tayang Dress']);

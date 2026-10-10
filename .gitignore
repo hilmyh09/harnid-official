@@ -25,3 +25,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# NgodingPakeAI: state sync lokal
+/.ngodingpakeai/pending.json
+/.ngodingpakeai/summaries.json

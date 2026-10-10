@@ -6,3 +6,9 @@
 # docs/internal/
 # *.snap
 # fixtures/
+
+# Hasil generate Laravel (bukan kode sumber)
+storage/
+bootstrap/cache/
+composer.lock
+package-lock.json

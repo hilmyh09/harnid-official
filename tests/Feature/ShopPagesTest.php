@@ -111,6 +111,16 @@ class ShopPagesTest extends TestCase
         }
     }
 
+    public function test_mobile_menu_panel_markup_is_present_with_main_links(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('class="icon-btn -mr-2 md:hidden" data-drawer-open aria-label="Buka menu" aria-controls="site-drawer" aria-expanded="false"', false)
+            ->assertSee('id="site-drawer"', false)
+            ->assertSee('aria-label="Tutup menu"', false)
+            ->assertSeeInOrder(['id="site-drawer"', 'class="drawer-link', 'Beranda', 'Produk', 'Kontak'], false);
+    }
+
     public function test_navbar_marks_the_current_page_link_as_active(): void
     {
         $product = Product::factory()->create();

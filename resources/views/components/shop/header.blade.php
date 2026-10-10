@@ -53,10 +53,11 @@
 </header>
 
 {{-- Menu samping (off-canvas) --}}
+{{-- Panel menu HP: menutupi sebagian layar (maks. 85%), sisanya overlay yang bisa ditekan untuk menutup. --}}
 <div id="site-drawer" class="fixed inset-0 z-40 hidden md:hidden" data-drawer hidden>
-    <div class="absolute inset-0 bg-noir-900/40" data-drawer-close></div>
-    <nav class="absolute inset-y-0 left-0 flex w-full max-w-md flex-col overflow-y-auto bg-white px-6 pb-10 pt-5 shadow-2xl sm:px-8" aria-label="Menu utama">
-        <button type="button" class="icon-btn -ml-2 self-start" data-drawer-close aria-label="Tutup menu">
+    <div class="absolute inset-0 bg-noir-900/40" data-drawer-close aria-hidden="true"></div>
+    <nav class="absolute inset-y-0 left-0 flex w-[85%] max-w-sm flex-col overflow-y-auto bg-white px-6 pb-10 pt-3 shadow-2xl" aria-label="Menu ponsel" role="dialog" aria-modal="true">
+        <button type="button" class="icon-btn -ml-2 mt-1 min-h-12 min-w-12 self-start" data-drawer-close aria-label="Tutup menu">
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></svg>
         </button>
 

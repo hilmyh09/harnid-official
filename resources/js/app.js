@@ -12,18 +12,22 @@ document.querySelectorAll('[data-gallery]').forEach((gallery) => {
     });
 });
 
-// Menu samping (drawer).
+// Panel menu HP (drawer). Tombol tiga garis membuka/menutup (toggle);
+// overlay, tombol tutup, Escape, dan klik tautan di dalam panel juga menutup.
 const drawer = document.querySelector('[data-drawer]');
 if (drawer) {
-    const openButtons = document.querySelectorAll('[data-drawer-open]');
+    const toggleButtons = document.querySelectorAll('[data-drawer-open]');
+    const isOpen = () => !drawer.hidden;
     const setOpen = (open) => {
         drawer.hidden = !open;
         drawer.classList.toggle('hidden', !open);
         document.body.classList.toggle('overflow-hidden', open);
-        openButtons.forEach((b) => b.setAttribute('aria-expanded', String(open)));
+        toggleButtons.forEach((b) => b.setAttribute('aria-expanded', String(open)));
         if (open) drawer.querySelector('[data-drawer-close]')?.focus();
+        else toggleButtons[0]?.focus();
     };
-    openButtons.forEach((b) => b.addEventListener('click', () => setOpen(true)));
+    toggleButtons.forEach((b) => b.addEventListener('click', () => setOpen(!isOpen())));
     drawer.querySelectorAll('[data-drawer-close]').forEach((el) => el.addEventListener('click', () => setOpen(false)));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !drawer.hidden) setOpen(false); });
+    drawer.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) setOpen(false); });
 }

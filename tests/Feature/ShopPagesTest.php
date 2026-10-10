@@ -105,10 +105,24 @@ class ShopPagesTest extends TestCase
                 ->assertSee('<header class="sticky top-0', false)
                 ->assertSee('aria-label="Beranda '.config('company.name').'"', false)
                 ->assertSee('<nav class="hidden md:flex', false)
-                ->assertSeeInOrder(['href="'.route('home').'" class="nav-link">Beranda', 'href="'.route('catalog.index').'" class="nav-link">Produk', 'href="'.route('contact').'" class="nav-link">Kontak'], false)
+                ->assertSeeInOrder(['href="'.route('home').'" class="nav-link', 'Beranda', 'href="'.route('catalog.index').'" class="nav-link', 'Produk', 'href="'.route('contact').'" class="nav-link', 'Kontak'], false)
                 ->assertSee('aria-label="Buka menu"', false)
                 ->assertSee('href="'.route('cart.index').'" class="icon-btn relative"', false);
         }
+    }
+
+    public function test_navbar_marks_the_current_page_link_as_active(): void
+    {
+        $product = Product::factory()->create();
+
+        $active = fn (string $label) => 'class="nav-link nav-link-active" aria-current="page">'.$label;
+        $inactive = fn (string $label) => 'class="nav-link">'.$label;
+
+        $this->get(route('home'))->assertSee($active('Beranda'), false)->assertSee($inactive('Produk'), false)->assertSee($inactive('Kontak'), false);
+        $this->get(route('catalog.index'))->assertSee($active('Produk'), false)->assertSee($inactive('Beranda'), false);
+        $this->get(route('product.show', $product))->assertSee($active('Produk'), false);
+        $this->get(route('contact'))->assertSee($active('Kontak'), false)->assertSee($inactive('Produk'), false);
+        $this->get(route('cart.index'))->assertDontSee('nav-link-active');
     }
 
     public function test_brand_logo_links_home_and_uses_company_name(): void

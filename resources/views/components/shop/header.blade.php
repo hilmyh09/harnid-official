@@ -7,10 +7,11 @@
     Kiri: logo & nama toko. Tengah/kanan (md+): tautan Beranda, Produk, Kontak.
     Kanan: cari, keranjang (+badge), akun, dan tombol menu tiga garis (hanya ponsel).
 --}}
+{{-- `active`: pola nama route yang membuat tautan ditandai sebagai halaman aktif. --}}
 @php($mainLinks = [
-    ['label' => 'Beranda', 'url' => route('home')],
-    ['label' => 'Produk', 'url' => route('catalog.index')],
-    ['label' => 'Kontak', 'url' => route('contact')],
+    ['label' => 'Beranda', 'url' => route('home'), 'active' => request()->routeIs('home')],
+    ['label' => 'Produk', 'url' => route('catalog.index'), 'active' => request()->routeIs('catalog.*', 'product.*')],
+    ['label' => 'Kontak', 'url' => route('contact'), 'active' => request()->routeIs('contact', 'contact.*')],
 ])
 <header class="sticky top-0 z-30 border-b border-ivory-200 bg-white/95 backdrop-blur" data-site-header>
     <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 sm:px-8 md:h-20">
@@ -18,7 +19,7 @@
 
         <nav class="hidden md:flex md:items-center md:gap-8" aria-label="Menu utama">
             @foreach ($mainLinks as $link)
-                <a href="{{ $link['url'] }}" class="nav-link">{{ $link['label'] }}</a>
+                <a href="{{ $link['url'] }}" class="nav-link{{ $link['active'] ? ' nav-link-active' : '' }}"{!! $link['active'] ? ' aria-current="page"' : '' !!}>{{ $link['label'] }}</a>
             @endforeach
         </nav>
 
@@ -61,7 +62,7 @@
 
         <div class="mt-6 divide-y divide-transparent">
             @foreach ($mainLinks as $link)
-                <a href="{{ $link['url'] }}" class="drawer-link">{{ $link['label'] }}</a>
+                <a href="{{ $link['url'] }}" class="drawer-link{{ $link['active'] ? ' drawer-link-active' : '' }}"{!! $link['active'] ? ' aria-current="page"' : '' !!}>{{ $link['label'] }}</a>
             @endforeach
             <hr class="my-3 border-ivory-200">
             <a href="{{ route('catalog.new') }}" class="drawer-link">New Arrivals</a>

@@ -43,8 +43,10 @@
     .admin-link { @apply block rounded px-3 py-2 text-sm text-ivory-200 hover:bg-noir-700 hover:text-white; }
     .admin-link-active { @apply bg-noir-700 text-white; }
     .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
-    .nav-link { @apply inline-flex h-10 items-center text-xs font-semibold uppercase tracking-[0.18em] text-noir-800 transition hover:text-gold-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500; }
+    .nav-link { @apply inline-flex h-10 items-center border-b-2 border-transparent text-xs font-semibold uppercase tracking-[0.18em] text-noir-800 transition hover:text-gold-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500; }
+    .nav-link-active { @apply border-gold-500 text-noir-900; }
     .icon-btn { @apply inline-flex h-10 w-10 items-center justify-center text-noir-900 transition hover:text-gold-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-500; }
     .drawer-link { @apply flex items-center justify-between py-4 text-[17px] font-medium text-noir-800 hover:text-gold-600; }
+    .drawer-link-active { @apply text-gold-600; }
     .drawer-sublink { @apply block py-2 pl-4 text-[15px] text-noir-700 hover:text-gold-600; }
 }

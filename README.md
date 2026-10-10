@@ -90,6 +90,7 @@ database/seeders/             CatalogSeeder (katalog awal), DemoSeeder (data DEM
 resources/views/shop/         Halaman toko
 resources/views/admin/        Halaman admin
 resources/views/components/   layouts/shop, layouts/admin, product-card, price, status-badge, dll.
+resources/views/components/sections/  Section homepage: hero, featured-products, categories, new-arrivals, signature, lookbook, benefits
 tests/Feature/                ShopPagesTest, CartCheckoutTest, AdminTest, AuthTest, ContactFormTest
 ```
 

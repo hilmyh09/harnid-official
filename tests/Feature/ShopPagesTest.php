@@ -29,6 +29,24 @@ class ShopPagesTest extends TestCase
             ->assertSee('2 toko, 1 kota');
     }
 
+    public function test_home_sections_render_in_prd_order(): void
+    {
+        $category = Category::factory()->create(['name' => 'Dresses', 'slug' => 'dresses']);
+        Product::factory()->create(['name' => 'Sorotan Dress', 'category_id' => $category->id, 'is_featured' => true]);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSeeInOrder([
+                'id="hero-title"',
+                'Mulai Belanja',
+                'id="featured-title"',
+                'id="categories-title"',
+                'id="new-arrivals-title"',
+                'id="benefits-title"',
+                '<footer',
+            ], false);
+    }
+
     public function test_catalog_hides_unpublished_and_inactive_products(): void
     {
         Product::factory()->create(['name' => 'Tayang Dress']);

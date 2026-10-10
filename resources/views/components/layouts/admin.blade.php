@@ -10,6 +10,9 @@
     <link rel="icon" type="image/png" sizes="64x64" href="/images/brand/favicon-64.png">
     <link rel="apple-touch-icon" href="/images/brand/apple-touch-icon.png">
     <title>{{ $title }} — Admin {{ config('company.name') }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-ivory-100 font-sans antialiased">

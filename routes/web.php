@@ -15,6 +15,7 @@ Route::get('/koleksi/{collection}', [Shop\CatalogController::class, 'collection'
 Route::get('/produk/{product}', [Shop\CatalogController::class, 'show'])->name('product.show');
 
 Route::get('/keranjang', [Shop\CartController::class, 'index'])->name('cart.index');
+Route::get('/keranjang/jumlah', [Shop\CartController::class, 'count'])->name('cart.count'); // JSON; butuh session (middleware web)
 Route::post('/keranjang/{product}', [Shop\CartController::class, 'add'])->name('cart.add');
 Route::patch('/keranjang/{key}', [Shop\CartController::class, 'update'])->name('cart.update');
 Route::delete('/keranjang/{key}', [Shop\CartController::class, 'remove'])->name('cart.remove');

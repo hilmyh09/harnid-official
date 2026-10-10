@@ -34,6 +34,24 @@ class CartCheckoutTest extends TestCase
         $this->get(route('cart.index'))->assertSee('masih kosong');
     }
 
+    public function test_cart_count_endpoint_reflects_session_cart(): void
+    {
+        $dress = Product::factory()->create(['price' => 100000]);
+        $scarf = Product::factory()->withoutSizes()->create(['price' => 25000]);
+
+        $this->getJson(route('cart.count'))
+            ->assertOk()
+            ->assertHeader('Cache-Control', 'no-store, private')
+            ->assertExactJson(['count' => 0, 'lines' => 0, 'subtotal' => 0, 'subtotal_formatted' => 'Rp 0']);
+
+        $this->post(route('cart.add', $dress), ['size' => 'M', 'quantity' => 2]);
+        $this->post(route('cart.add', $scarf), ['quantity' => 1]);
+
+        $this->getJson(route('cart.count'))
+            ->assertOk()
+            ->assertJson(['count' => 3, 'lines' => 2, 'subtotal' => 225000, 'subtotal_formatted' => 'Rp 225.000']);
+    }
+
     public function test_add_update_and_remove_cart_lines(): void
     {
         $dress = Product::factory()->create(['name' => 'Kirana Dress', 'price' => 500000]);

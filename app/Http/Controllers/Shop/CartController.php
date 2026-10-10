@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AddToCartRequest;
 use App\Models\Product;
 use App\Services\Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -20,6 +21,20 @@ class CartController extends Controller
             'lines' => $this->cart->lines(),
             'subtotal' => $this->cart->subtotal(),
         ]);
+    }
+
+    /**
+     * GET /keranjang/jumlah — jumlah barang di keranjang (session) untuk badge navbar.
+     * Dipakai JS setelah "Tambah ke Keranjang" agar badge berubah tanpa reload.
+     */
+    public function count(): JsonResponse
+    {
+        return response()->json([
+            'count' => $this->cart->count(),
+            'lines' => $this->cart->lines()->count(),
+            'subtotal' => $this->cart->subtotal(),
+            'subtotal_formatted' => rupiah($this->cart->subtotal()),
+        ])->header('Cache-Control', 'no-store');
     }
 
     public function add(AddToCartRequest $request, Product $product): RedirectResponse

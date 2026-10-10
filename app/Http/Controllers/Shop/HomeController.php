@@ -33,7 +33,7 @@ class HomeController extends Controller
      */
     private function featuredProducts(): EloquentCollection
     {
-        $products = Product::published()->with('category')->where('is_featured', true)->take(4)->get();
+        $products = Product::featuredForHome()->take(4)->get();
 
         if ($products->isEmpty()) {
             $products = Product::published()->with('category')->latest('published_at')->take(4)->get();

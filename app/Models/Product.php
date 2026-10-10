@@ -57,6 +57,12 @@ class Product extends Model
             ->where('published_at', '<=', now());
     }
 
+    /** Produk sorotan homepage: tayang, ditandai unggulan, terbaru dulu. */
+    public function scopeFeaturedForHome(Builder $query): Builder
+    {
+        return $query->published()->with('category')->where('is_featured', true)->latest('published_at');
+    }
+
     public function isPublished(): bool
     {
         return $this->is_active && $this->published_at !== null && $this->published_at->lte(now());

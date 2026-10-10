@@ -81,6 +81,8 @@ Tes lokal memakai SQLite in-memory (`phpunit.xml`). GitHub Actions (`.github/wor
 app/Http/Controllers/Shop/    HomeController, CatalogController, CartController, CheckoutController, PageController, ContactController
 app/Http/Controllers/Admin/   DashboardController, ProductController, OrderController, MessageController
 app/Http/Controllers/Auth/    LoginController
+app/Http/Controllers/Api/     FeaturedProductController (GET /api/produk/unggulan, JSON produk sorotan homepage)
+app/Http/Resources/           ProductResource (bentuk JSON produk)
 app/Http/Requests/            AddToCartRequest, CheckoutRequest, ProductRequest, ContactRequest, LoginRequest
 app/Models/                   Category, Collection, Product, Store, Order, OrderItem, ContactMessage, User
 app/Services/                 Cart (session), OrderService (transaksi pesanan, pesan WhatsApp)

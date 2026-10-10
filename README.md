@@ -96,6 +96,16 @@ resources/views/components/sections/  Section homepage: hero, featured-products,
 tests/Feature/                ShopPagesTest, CartCheckoutTest, AdminTest, AuthTest, ContactFormTest
 ```
 
+## Deploy ke Vercel
+
+Repo ini sudah membawa `vercel.json` dan `api/index.php` (runtime komunitas `vercel-php`, PHP 8.3).
+
+1. Di Vercel: **Add New → Project → Import** repo `hilmyh09/harnid-official` (pasang GitHub app Vercel bila diminta). Framework preset: **Other**. Biarkan build/output mengikuti `vercel.json`.
+2. Tambahkan environment variable **`APP_KEY`** (hasil `php artisan key:generate --show`) untuk Production dan Preview. Tanpa ini sesi/keranjang tidak jalan.
+3. Deploy. Branch `main` menjadi production, branch lain menjadi preview.
+
+Mode demo: tanpa `DB_*` yang diisi, app memakai `database/demo.sqlite` (katalog contoh) yang disalin ke `/tmp` tiap instance, jadi pesanan/pesan masuk tidak permanen. Untuk data nyata, isi `DB_CONNECTION=pgsql` beserta `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` (mis. Neon dari Vercel Marketplace) lalu jalankan `php artisan migrate --seed` ke database itu. Perbarui `database/demo.sqlite` dengan `php artisan migrate:fresh --seed` memakai `DB_DATABASE=database/demo.sqlite` bila seeder berubah.
+
 ## Rencana berikutnya
 
 - Pembayaran online (Midtrans/Xendit) dan ongkir otomatis (RajaOngkir/Biteship).

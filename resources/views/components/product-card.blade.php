@@ -1,5 +1,7 @@
 @props(['product'])
-<a href="{{ route('product.show', $product) }}" class="group block">
+{{-- Produk tiruan (belum tersimpan) diarahkan ke katalog, bukan ke halaman detail yang belum ada. --}}
+@php($href = $product->exists ? route('product.show', $product) : route('catalog.index'))
+<a href="{{ $href }}" class="group block">
     <div class="relative aspect-[3/4] overflow-hidden bg-ivory-200">
         @if ($product->imageUrl())
             <img src="{{ $product->imageUrl() }}" alt="{{ $product->name }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-105">

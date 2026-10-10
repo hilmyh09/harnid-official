@@ -60,6 +60,27 @@ class ShopPagesTest extends TestCase
         $this->get(route('catalog.index'))->assertOk();
     }
 
+    public function test_home_featured_section_shows_real_products_or_mock_cards(): void
+    {
+        // Katalog kosong: tampil kartu tiruan yang mengarah ke katalog.
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Sorotan produk')
+            ->assertSee('Kirana Dress Ivory')
+            ->assertSee('Rp 589.000')
+            ->assertSee('/images/products/dress-ivory.svg')
+            ->assertDontSee('/produk/kirana-dress-ivory');
+
+        // Ada produk unggulan: kartu tiruan tidak dipakai.
+        Product::factory()->create(['name' => 'Unggulan Dress', 'price' => 250000, 'is_featured' => true]);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('Unggulan Dress')
+            ->assertSee('Rp 250.000')
+            ->assertDontSee('Kirana Dress Ivory');
+    }
+
     public function test_catalog_hides_unpublished_and_inactive_products(): void
     {
         Product::factory()->create(['name' => 'Tayang Dress']);

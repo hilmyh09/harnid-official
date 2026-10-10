@@ -31,3 +31,11 @@ if (drawer) {
     drawer.querySelectorAll('a[href]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) setOpen(false); });
 }
+
+// Navbar tetap di atas (sticky); beri bayangan tipis setelah halaman digulir.
+const siteHeader = document.querySelector('[data-site-header]');
+if (siteHeader) {
+    const onScroll = () => siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+}

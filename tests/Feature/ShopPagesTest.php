@@ -108,7 +108,9 @@ class ShopPagesTest extends TestCase
                 ->assertSee('<nav class="text-sm" aria-label="Tautan utama">', false)
                 ->assertSee('href="'.route('home').'">Beranda', false)
                 ->assertSee('href="'.route('catalog.index').'">Produk', false)
-                ->assertSee('href="'.route('contact').'">Kontak', false);
+                ->assertSee('href="'.route('contact').'">Kontak', false)
+                ->assertSee('Instagram @'.config('company.instagram'))
+                ->assertDontSee("config('company.instagram')");
         }
     }
 

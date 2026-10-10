@@ -1,7 +1,7 @@
 {{-- Lini signature: koleksi unggulan (mis. Harnid Noir). --}}
 @props(['collection'])
 @if ($collection)
-    <section class="mt-16 bg-noir-900 text-ivory-50" aria-labelledby="signature-title">
+    <section class="bg-noir-900 text-ivory-50" aria-labelledby="signature-title">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-20 sm:px-6 md:grid-cols-2">
             <div class="order-2 md:order-1">
                 <p class="eyebrow text-gold-400">Signature line</p>

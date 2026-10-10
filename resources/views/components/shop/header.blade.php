@@ -87,10 +87,10 @@
             <a href="https://instagram.com/{{ config('company.instagram') }}" target="_blank" rel="noopener" aria-label="Instagram" class="hover:text-gold-600">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
             </a>
-            <a href="https://www.tiktok.com/@{{ config('company.instagram') }}" target="_blank" rel="noopener" aria-label="TikTok" class="hover:text-gold-600">
+            <a href="https://www.tiktok.com/{{ '@'.config('company.instagram') }}" target="_blank" rel="noopener" aria-label="TikTok" class="hover:text-gold-600">
                 <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 3h2.6c.2 1.9 1.5 3.4 3.4 3.7v2.6a6.3 6.3 0 0 1-3.4-1.1v6.3a5.3 5.3 0 1 1-5.3-5.3c.3 0 .6 0 .9.1v2.7a2.7 2.7 0 1 0 1.8 2.5V3Z"/></svg>
             </a>
-            <a href="https://www.youtube.com/@{{ config('company.instagram') }}" target="_blank" rel="noopener" aria-label="YouTube" class="hover:text-gold-600">
+            <a href="https://www.youtube.com/{{ '@'.config('company.instagram') }}" target="_blank" rel="noopener" aria-label="YouTube" class="hover:text-gold-600">
                 <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></svg>
             </a>
         </div>

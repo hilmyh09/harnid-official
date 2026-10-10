@@ -2,9 +2,9 @@
 @php($phoneHref = 'tel:'.preg_replace('/[^0-9+]/', '', config('company.phone')))
 <footer class="mt-24 border-t border-ivory-200 bg-ivory-100" aria-labelledby="footer-title">
     <h2 id="footer-title" class="sr-only">Informasi {{ config('company.name') }}</h2>
-    <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:grid-cols-2 lg:grid-cols-5">
+    <div class="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-14 sm:px-6 lg:grid-cols-5">
         {{-- Identitas + kontak --}}
-        <div class="sm:col-span-2">
+        <div class="col-span-2">
             <a href="{{ route('home') }}" class="inline-block" aria-label="Beranda {{ config('company.name') }}"><x-brand-logo /></a>
             <p class="mt-3 max-w-sm text-sm text-noir-700">{{ config('company.tagline') }}. Sejak {{ config('company.founded_year') }}.</p>
             <address class="mt-6 space-y-2 text-sm not-italic text-noir-700">
@@ -39,7 +39,7 @@
             <ul class="mt-3 space-y-2 text-noir-700">
                 <li><a class="hover:text-noir-900" href="{{ route('about') }}">Tentang kami</a></li>
                 <li><a class="hover:text-noir-900" href="{{ route('stores') }}">Lokasi toko</a></li>
-                <li><a class="hover:text-noir-900" href="https://instagram.com/{{ config('company.instagram') }}" target="_blank" rel="noopener">Instagram @{{ config('company.instagram') }}</a></li>
+                <li><a class="hover:text-noir-900" href="https://instagram.com/{{ config('company.instagram') }}" target="_blank" rel="noopener">Instagram {{ '@'.config('company.instagram') }}</a></li>
                 <li><a class="hover:text-noir-900" href="https://wa.me/{{ config('company.whatsapp') }}" target="_blank" rel="noopener">Chat WhatsApp</a></li>
             </ul>
         </nav>

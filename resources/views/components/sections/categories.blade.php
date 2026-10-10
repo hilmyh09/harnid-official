@@ -1,6 +1,6 @@
 {{-- Kategori: pintasan ke katalog per kategori. --}}
 @props(['categories'])
-<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6" aria-labelledby="categories-title">
+<section class="mx-auto max-w-7xl px-4 pt-16 sm:px-6" aria-labelledby="categories-title">
     <div class="flex items-end justify-between">
         <div>
             <p class="eyebrow">Shop by category</p>

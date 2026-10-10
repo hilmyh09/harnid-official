@@ -36,12 +36,7 @@
                     </div>
                 </form>
             </details>
-            <a href="{{ route('cart.index') }}" class="icon-btn relative" aria-label="Keranjang, {{ $cartCount }} item">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linejoin="round" d="M5 8h14l-1 12H6L5 8Z"/><path stroke-linecap="round" d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-                @if ($cartCount > 0)
-                    <span class="absolute -right-0.5 -top-0.5 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-noir-900 px-1 text-[10px] font-semibold text-ivory-50">{{ $cartCount }}</span>
-                @endif
-            </a>
+            <x-shop.cart-button :count="$cartCount" />
             <a href="{{ auth()->check() ? route('admin.dashboard') : route('login') }}" class="icon-btn" aria-label="{{ auth()->check() ? 'Admin' : 'Masuk' }}">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6"/></svg>
             </a>

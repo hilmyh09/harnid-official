@@ -121,6 +121,24 @@ class ShopPagesTest extends TestCase
             ->assertSeeInOrder(['id="site-drawer"', 'class="drawer-link', 'Beranda', 'Produk', 'Kontak'], false);
     }
 
+    public function test_navbar_cart_badge_hidden_when_empty_and_shows_item_count(): void
+    {
+        $product = Product::factory()->withoutSizes()->create();
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('aria-label="Keranjang, 0 item"', false)
+            ->assertSee('hidden" data-cart-count="0"', false);
+
+        $this->post(route('cart.add', $product), ['quantity' => 3]);
+
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertSee('aria-label="Keranjang, 3 item"', false)
+            ->assertSee('data-cart-count="3" aria-hidden="true">3</span>', false)
+            ->assertDontSee('hidden" data-cart-count', false);
+    }
+
     public function test_navbar_marks_the_current_page_link_as_active(): void
     {
         $product = Product::factory()->create();

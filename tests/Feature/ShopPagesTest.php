@@ -95,6 +95,22 @@ class ShopPagesTest extends TestCase
             ->assertSee('<svg class="h-6 w-6"', false);
     }
 
+    public function test_navbar_shows_logo_and_main_links_on_every_shop_page(): void
+    {
+        $product = Product::factory()->create();
+
+        foreach ([route('home'), route('catalog.index'), route('product.show', $product), route('cart.index'), route('contact')] as $url) {
+            $this->get($url)
+                ->assertOk()
+                ->assertSee('<header class="sticky top-0', false)
+                ->assertSee('aria-label="Beranda '.config('company.name').'"', false)
+                ->assertSee('<nav class="hidden md:flex', false)
+                ->assertSeeInOrder(['href="'.route('home').'" class="nav-link">Beranda', 'href="'.route('catalog.index').'" class="nav-link">Produk', 'href="'.route('contact').'" class="nav-link">Kontak'], false)
+                ->assertSee('aria-label="Buka menu"', false)
+                ->assertSee('href="'.route('cart.index').'" class="icon-btn relative"', false);
+        }
+    }
+
     public function test_footer_shows_contact_and_main_links_on_every_shop_page(): void
     {
         config(['company.email' => 'halo@harnid.test', 'company.phone' => '+62 812-1111-2222']);

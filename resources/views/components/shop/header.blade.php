@@ -1,19 +1,30 @@
 @php($cartCount = app(\App\Services\Cart::class)->count())
 @php($categories = \App\Models\Category::orderBy('sort_order')->get(['name', 'slug']))
 @php($collections = \App\Models\Collection::orderBy('sort_order')->get(['name', 'slug']))
-<header class="sticky top-0 z-30 border-b border-ivory-200 bg-white/95 backdrop-blur">
-    <div class="mx-auto grid max-w-screen-2xl grid-cols-[1fr_auto_1fr] items-center px-4 py-3 sm:px-8 sm:py-4">
-        <div class="flex items-center">
-            <button type="button" class="icon-btn -ml-2" data-drawer-open aria-label="Buka menu" aria-controls="site-drawer" aria-expanded="false">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
-            </button>
-        </div>
-
-        <a href="{{ route('home') }}" class="justify-self-center" aria-label="Beranda {{ config('company.name') }}">
+{{--
+    Navbar global: tampil di semua halaman toko lewat x-layouts.shop.
+    Tinggi tetap (h-16 di ponsel, h-20 di desktop) agar posisi tidak melompat antar halaman.
+    Kiri: logo & nama toko. Tengah/kanan (md+): tautan Beranda, Produk, Kontak.
+    Kanan: cari, keranjang (+badge), akun, dan tombol menu tiga garis (hanya ponsel).
+--}}
+@php($mainLinks = [
+    ['label' => 'Beranda', 'url' => route('home')],
+    ['label' => 'Produk', 'url' => route('catalog.index')],
+    ['label' => 'Kontak', 'url' => route('contact')],
+])
+<header class="sticky top-0 z-30 border-b border-ivory-200 bg-white/95 backdrop-blur" data-site-header>
+    <div class="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-4 px-4 sm:px-8 md:h-20">
+        <a href="{{ route('home') }}" class="shrink-0" aria-label="Beranda {{ config('company.name') }}">
             <x-brand-logo />
         </a>
 
-        <div class="flex items-center justify-end gap-1 sm:gap-2">
+        <nav class="hidden md:flex md:items-center md:gap-8" aria-label="Menu utama">
+            @foreach ($mainLinks as $link)
+                <a href="{{ $link['url'] }}" class="nav-link">{{ $link['label'] }}</a>
+            @endforeach
+        </nav>
+
+        <div class="flex items-center gap-1 sm:gap-2">
             <details class="relative">
                 <summary class="icon-btn cursor-pointer list-none" aria-label="Cari produk">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="m20 20-3.5-3.5"/></svg>
@@ -35,12 +46,15 @@
             <a href="{{ auth()->check() ? route('admin.dashboard') : route('login') }}" class="icon-btn" aria-label="{{ auth()->check() ? 'Admin' : 'Masuk' }}">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path stroke-linecap="round" d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6"/></svg>
             </a>
+            <button type="button" class="icon-btn -mr-2 md:hidden" data-drawer-open aria-label="Buka menu" aria-controls="site-drawer" aria-expanded="false">
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
         </div>
     </div>
 </header>
 
 {{-- Menu samping (off-canvas) --}}
-<div id="site-drawer" class="fixed inset-0 z-40 hidden" data-drawer hidden>
+<div id="site-drawer" class="fixed inset-0 z-40 hidden md:hidden" data-drawer hidden>
     <div class="absolute inset-0 bg-noir-900/40" data-drawer-close></div>
     <nav class="absolute inset-y-0 left-0 flex w-full max-w-md flex-col overflow-y-auto bg-white px-6 pb-10 pt-5 shadow-2xl sm:px-8" aria-label="Menu utama">
         <button type="button" class="icon-btn -ml-2 self-start" data-drawer-close aria-label="Tutup menu">
@@ -48,6 +62,10 @@
         </button>
 
         <div class="mt-6 divide-y divide-transparent">
+            @foreach ($mainLinks as $link)
+                <a href="{{ $link['url'] }}" class="drawer-link">{{ $link['label'] }}</a>
+            @endforeach
+            <hr class="my-3 border-ivory-200">
             <a href="{{ route('catalog.new') }}" class="drawer-link">New Arrivals</a>
             <details class="group">
                 <summary class="drawer-link cursor-pointer list-none">
